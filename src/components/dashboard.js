@@ -7,6 +7,7 @@ import Profiel from './profiel';
 import Stages from './stages';
 import Bedrijven from './bedrijven';
 import BedrijfToevoegen from './bedrijf_toevoegen';
+import StageToevoegen from './stage_toevoegen';
 
 import { Layout, Menu, Icon } from 'antd';
 const { Header, Sider, Content } = Layout;
@@ -72,6 +73,7 @@ class Dashboard extends Component {
                         <Route path={`${this.props.match.url}/stages`} component={Stages}/>
                         <Route path={`${this.props.match.url}/bedrijven`} component={Bedrijven}/>
                         <Route path={`${this.props.match.url}/bedrijf-toevoegen`} component={BedrijfToevoegen}/>
+                        <Route path={`${this.props.match.url}/stage-toevoegen`} component={StageToevoegen}/>
                     </Content>
                 </Layout>
             </Layout>
