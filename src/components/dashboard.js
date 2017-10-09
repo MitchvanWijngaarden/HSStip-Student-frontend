@@ -64,7 +64,7 @@ class Dashboard extends Component {
                             onClick={this.toggle}
                         />
                     </Header>
-                    <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                    <Content style={{ margin: '24px 16px', padding: 24, background: '#fff'}}>
                         <Route path={`${this.props.match.url}/profiel`} component={Profiel}/>
                     </Content>
                 </Layout>
