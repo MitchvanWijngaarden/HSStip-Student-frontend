@@ -1,0 +1,52 @@
+.center {
+    margin: auto;
+}
+
+.login-form {
+    width: 300px;
+    padding: 24px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.login-form-forgot {
+    float: right;
+}
+
+.login-form-button {
+    width: 100%;
+}
+
+.register-form {
+    width: 540px;
+    padding: 24px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: color .3s;
+}
+
+.trigger:hover {
+    color: #108ee9;
+}
+
+.ant-menu-item-selected{
+    background-color: #00afaf!important;
+}
+
+.main-h1{
+    color: rgba(0,0,0,.85);
+    font-weight: 500;
+    line-height: 40px;
+    margin-bottom: 24px;
+}
+
+.main-input{
+    width: 400px;
+}
