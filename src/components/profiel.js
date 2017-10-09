@@ -15,62 +15,85 @@ class Profiel extends Component {
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
-        
-        };
-        const tailFormItemLayout = {
-
+            labelCol: { span: 3 },
+            wrapperCol: { span: 5 },
         };
 
         return (
             <div>
                 <h1 className="main-h1">Profiel</h1>
-                <Form>
+                <Form layout='horizontal'>
                     <FormItem
                         {...formItemLayout}
-                        label="E-mail"
-                        hasFeedback>
-
-                        {getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email', message: 'The input is not valid E-mail!',
-                            }, {
-                                required: true, message: 'Please input your E-mail!',
-                            }],
-                        })(
-                            <Input />
-                        )}
+                    >
+                        <Input placeholder="Voornaam*" />
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Password"
-                        hasFeedback>
-
-                        {getFieldDecorator('password', {
-                            rules: [{
-                                required: true, message: 'Please input your password!',
-                            }, {
-                                validator: this.checkConfirm,
-                            }],
-                        })(
-                            <Input type="password" />
-                        )}
+                    >
+                        <Input placeholder="Tussenvoegsel" />
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Confirm Password"
-                        hasFeedback>
-
-                        {getFieldDecorator('confirm', {
-                            rules: [{
-                                required: true, message: 'Please confirm your password!',
-                            }, {
-                                validator: this.checkPassword,
-                            }],
-                        })(
-                            <Input type="password" onBlur={this.handleConfirmBlur} />
-                        )}
+                    >
+                        <Input placeholder="Achternaam" />
                     </FormItem>
-                    <FormItem {...tailFormItemLayout}>
+                    <FormItem
+                        {...formItemLayout}
+                    >
+                        <Input placeholder="E-mail" />
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                    >
+                        <Input placeholder="Telefoonnummer" />
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                    >
+                        <Input placeholder="Gebruikersnaam" />
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                    >
+                        <Input placeholder="Nieuw wachtwoord" />
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                    >
+                        <Input placeholder="Bevestig wachtwoord" />
+                    </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    hasFeedback
+                >
+                    {getFieldDecorator('select', {
+                        rules: [
+                            { required: true, message: 'Please select your country!' },
+                        ],
+                    })(
+                        <Select placeholder="Selecteer je studie">
+                            <Option value="china">China</Option>
+                            <Option value="use">U.S.A</Option>
+                        </Select>
+                    )}
+                </FormItem>
+                <FormItem
+                    {...formItemLayout}
+                    hasFeedback
+                >
+                    {getFieldDecorator('select', {
+                        rules: [
+                            { required: true, message: 'Please select your country!' },
+                        ],
+                    })(
+                        <Select placeholder="Selecteer je mentor">
+                            <Option value="china">China</Option>
+                            <Option value="use">U.S.A</Option>
+                        </Select>
+                    )}
+                </FormItem>
+                    <FormItem>
                         <Button type="primary" htmlType="submit">Opslaan</Button>
                     </FormItem>
                 </Form>
