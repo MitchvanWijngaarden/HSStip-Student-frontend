@@ -26,7 +26,7 @@ class Profiel extends Component {
                     <FormItem
                         {...formItemLayout}
                     >
-                        <Input placeholder="Voornaam*" />
+                        <Input placeholder="Voornaam" />
                     </FormItem>
                     <FormItem
                         {...formItemLayout}

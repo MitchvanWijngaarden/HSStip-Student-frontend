@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 
 import Profiel from './profiel';
+import Stages from './stages';
+import Bedrijven from './bedrijven';
+import BedrijfToevoegen from './bedrijf_toevoegen';
 
 import { Layout, Menu, Icon } from 'antd';
 const { Header, Sider, Content } = Layout;
@@ -46,13 +49,13 @@ class Dashboard extends Component {
                         </Menu.Item>
 
                         <SubMenu key="sub1" title={<span><Icon type="star" /><span>Bedrijven</span></span>}>
-                            <Menu.Item key="3">Bekijken</Menu.Item>
-                            <Menu.Item key="4">Toevoegen</Menu.Item>
+                            <Menu.Item key="/bedrijven">Bekijken</Menu.Item>
+                            <Menu.Item key="/bedrijf-toevoegen">Toevoegen</Menu.Item>
                         </SubMenu>
 
                         <SubMenu key="sub2" title={<span><Icon type="star" /><span>Stages</span></span>}>
-                            <Menu.Item key="5">Bekijken</Menu.Item>
-                            <Menu.Item key="6">Toevoegen</Menu.Item>
+                            <Menu.Item key="/stages">Bekijken</Menu.Item>
+                            <Menu.Item key="/stage-toevoegen">Toevoegen</Menu.Item>
                         </SubMenu>
                     </Menu>
                 </Sider>
@@ -66,6 +69,9 @@ class Dashboard extends Component {
                     </Header>
                     <Content style={{ margin: '24px 16px', padding: 24, background: '#fff'}}>
                         <Route path={`${this.props.match.url}/profiel`} component={Profiel}/>
+                        <Route path={`${this.props.match.url}/stages`} component={Stages}/>
+                        <Route path={`${this.props.match.url}/bedrijven`} component={Bedrijven}/>
+                        <Route path={`${this.props.match.url}/bedrijf-toevoegen`} component={BedrijfToevoegen}/>
                     </Content>
                 </Layout>
             </Layout>
