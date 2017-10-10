@@ -8,6 +8,7 @@ import Stages from './stages';
 import Bedrijven from './bedrijven';
 import BedrijfToevoegen from './bedrijf_toevoegen';
 import StageToevoegen from './stage_toevoegen';
+import Voortgang from './voortgang';
 
 import Logo from './logo';
 
@@ -79,6 +80,7 @@ class Dashboard extends Component {
                         <Logo/>
                     </Header>
                     <Content style={{ margin: '24px 16px', padding: 24, background: '#fff'}}>
+                        <Route exact path={`${this.props.match.url}/`} component={Voortgang}/>
                         <Route path={`${this.props.match.url}/profiel/`} component={Profiel}/>
                         <Route path={`${this.props.match.url}/stages/`} component={Stages}/>
                         <Route path={`${this.props.match.url}/bedrijven/`} component={Bedrijven}/>
