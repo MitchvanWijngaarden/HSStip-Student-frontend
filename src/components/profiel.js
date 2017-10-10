@@ -21,7 +21,7 @@ class Profiel extends Component {
 
         return (
             <div>
-                <h1 className="main-h1">Profiel</h1>
+                <h1 className="main-h">Profiel</h1>
                 <Form layout='horizontal'>
                     <FormItem
                         {...formItemLayout}

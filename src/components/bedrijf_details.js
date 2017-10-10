@@ -6,7 +6,7 @@ const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 const { TextArea } = Input;
 
-class BedrijfToevoegen extends Component {
+class BedrijfDetails extends Component {
 
     state = {
         confirmDirty: false,
@@ -23,45 +23,42 @@ class BedrijfToevoegen extends Component {
 
         return (
             <div>
-                <h1 className="main-h">Bedrijf toevoegen</h1>
+                <h1 className="main-h">Bedrijf details</h1>
                 <Form layout='horizontal'>
                     <FormItem
                         {...formItemLayout}
                     >
-                        <Input placeholder="Bedrijfsnaam" />
+                        <Input placeholder="Bedrijfsnaam" value="Google" disabled />
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                     >
-                        <Input placeholder="Adres" />
+                        <Input placeholder="Adres" value="googlestraat 5" disabled/>
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                     >
-                        <Input placeholder="Postcode" />
+                        <Input placeholder="Postcode" value="2545KJ" disabled/>
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                     >
-                        <Input placeholder="Stad" />
+                        <Input placeholder="Stad" value="Amsterdam" disabled/>
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                     >
-                        <Input placeholder="Telefoonnummer" />
+                        <Input placeholder="Telefoonnummer" value="0235654998" disabled/>
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                     >
-                        <Input placeholder="Website" />
+                        <Input placeholder="Website" value="www.google.nl" disabled/>
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                     >
-                        <TextArea placeholder="Omschrijving bedrijf" />
-                    </FormItem>
-                    <FormItem>
-                        <Button type="primary" htmlType="submit">Toevoegen</Button>
+                        <TextArea placeholder="Omschrijving bedrijf" value="Google steelt je gegevens" disabled/>
                     </FormItem>
                 </Form>
             </div>
@@ -69,6 +66,6 @@ class BedrijfToevoegen extends Component {
     }
 }
 
-const WrappedBedrijfToevoegen = Form.create()(BedrijfToevoegen);
+const WrappedBedrijfDetails = Form.create()(BedrijfDetails);
 
-export default WrappedBedrijfToevoegen;
+export default WrappedBedrijfDetails;

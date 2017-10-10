@@ -60,19 +60,23 @@ class Stages extends Component {
         this.setState({selectedRowKeys});
     };
 
+    handleRowClick = (record) => {
+        this.props.history.push(`/dashboard/stage-details/`);
+    };
+
     render() {
         const {loading, selectedRowKeys} = this.state;
         const hasSelected = selectedRowKeys.length > 0;
         return (
             <div>
-                <h1 className="main-h1">Stages</h1>
+                <h1 className="main-h">Stages</h1>
                 <div className="table-operations">
                     <Search
                         placeholder="Stages zoeken..."
                         style={{ width: 400 }}
                     />
                 </div>
-                <Table columns={columns} dataSource={data}/>
+                <Table columns={columns} dataSource={data} onRowClick={this.handleRowClick}/>
             </div>
         );
     }

@@ -28,9 +28,9 @@ class StageToevoegen extends Component {
 
         return (
             <div>
-                <h1 className="main-h1">Stage toevoegen</h1>
+                <h1 className="main-h">Stage toevoegen</h1>
 
-                <h2 className="main-h1">Stage informatie</h2>
+                <h2 className="main-h">Stage informatie</h2>
 
                 <Form layout='horizontal'>
                     <FormItem
@@ -77,7 +77,7 @@ class StageToevoegen extends Component {
                     </FormItem>
                 </Form>
 
-                    <h2 className="main-h1">Contactpersoon informatie</h2>
+                    <h2 className="main-h">Contactpersoon informatie</h2>
 
                     <Form layout='horizontal'>
                         <FormItem

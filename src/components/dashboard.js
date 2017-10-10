@@ -3,12 +3,14 @@ import {Route} from 'react-router-dom'
 import {Link} from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 
+import Voortgang from './voortgang';
 import Profiel from './profiel';
 import Stages from './stages';
 import Bedrijven from './bedrijven';
 import BedrijfToevoegen from './bedrijf_toevoegen';
 import StageToevoegen from './stage_toevoegen';
-import Voortgang from './voortgang';
+import BedrijfDetails from './bedrijf_details';
+import StageDetails from './stage_details';
 
 import Logo from './logo';
 
@@ -86,6 +88,8 @@ class Dashboard extends Component {
                         <Route path={`${this.props.match.url}/bedrijven/`} component={Bedrijven}/>
                         <Route path={`${this.props.match.url}/bedrijf-toevoegen/`} component={BedrijfToevoegen}/>
                         <Route path={`${this.props.match.url}/stage-toevoegen/`} component={StageToevoegen}/>
+                        <Route path={`${this.props.match.url}/bedrijf-details/`} component={BedrijfDetails}/>
+                        <Route path={`${this.props.match.url}/stage-details/`} component={StageDetails}/>
                     </Content>
                 </Layout>
             </Layout>

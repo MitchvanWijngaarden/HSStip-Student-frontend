@@ -45,7 +45,7 @@
     background-color: #00afaf!important;
 }
 
-.main-h1{
+.main-h{
     color: rgba(0,0,0,.85);
     font-weight: 500;
     line-height: 40px;
@@ -62,4 +62,8 @@
 
 .logo{
     font-size: 3.5em;
+}
+
+.ant-table-tbody > tr {
+    cursor: pointer;
 }
