@@ -44,7 +44,7 @@ class Login extends Component {
                         })(
                             <Checkbox>Onthoud mij</Checkbox>
                         )}
-                        <a className="login-form-forgot" href="">Wachtwoord vergeten</a>
+                        <Link to="/wachtwoord-reset" className="login-form-forgot ">Wachtwoord vergeten</Link>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             <Link to="/dashboard">Inloggen</Link>
                         </Button>
