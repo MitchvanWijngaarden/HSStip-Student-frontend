@@ -1,11 +1,11 @@
 import React, {Component} from "react";
 
-import {Form, Table, Button, Icon, Cascader, Select, Row, Col, Checkbox, AutoComplete} from 'antd';
+import {Form, Table, Button, Input, Cascader, Select, Row, Col, Checkbox, AutoComplete} from 'antd';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
-
+const {Search} = Input;
 
 const columns = [{
     title: 'Bedrijfsnaam',
@@ -55,7 +55,12 @@ class Bedrijven extends Component {
         return (
             <div>
                 <h1 className="main-h1">Bedrijven</h1>
-
+                <div className="table-operations">
+                    <Search
+                        placeholder="Bedrijven zoeken..."
+                        style={{ width: 400 }}
+                    />
+                </div>
                 <Table columns={columns} dataSource={data}/>
             </div>
         );
