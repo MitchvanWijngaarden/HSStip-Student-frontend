@@ -30,6 +30,7 @@ for (let i = 0; i < 46; i++) {
     });
 }
 
+
 class Bedrijven extends Component {
     constructor(props) {
         super(props);
@@ -46,7 +47,6 @@ class Bedrijven extends Component {
     componentWillMount(){
         axios.get('http://127.0.0.1:8090/bedrijven')
             .then((bedrijven) => {
-
                const mappedBedrijven = bedrijven.data.map((bedrijf) => {
                     bedrijf.key = bedrijf.id;
                     return bedrijf;
