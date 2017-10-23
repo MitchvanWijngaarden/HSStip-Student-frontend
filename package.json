@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "antd": "^2.13.4",
+    "antd": "^2.13.7",
     "axios": "^0.16.2",
     "express": "^4.16.2",
     "less": "^2.7.2",

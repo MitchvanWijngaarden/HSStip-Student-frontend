@@ -27,14 +27,15 @@ class Login extends Component {
                         {getFieldDecorator('userName', {
                             rules: [{ required: true, message: 'Please input your username!' }],
                         })(
-                            <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="Gebruikersnaam" />
+                            <Input placeholder="E-mail"
+                                   addonAfter="@student.hsleiden.nl" maxLength="8" />
                         )}
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('password', {
                             rules: [{ required: true, message: 'Please input your Password!' }],
                         })(
-                            <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="Wachtwoord" />
+                            <Input type="password" placeholder="Wachtwoord" />
                         )}
                     </FormItem>
                     <FormItem>

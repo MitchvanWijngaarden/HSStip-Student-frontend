@@ -27,13 +27,15 @@ class WachtwoordReset extends Component {
                         {getFieldDecorator('userName', {
                             rules: [{ required: true, message: 'Please input your username!' }],
                         })(
-                            <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="E-mail" />
+                            <Input placeholder="E-mail"
+                                   addonAfter="@student.hsleiden.nl" maxLength="8" />
                         )}
                     </FormItem>
                     <FormItem>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             <Link to="/dashboard">Wachwoord resetten</Link>
                         </Button>
+                        Of <Link to="/">Inloggen</Link>
                     </FormItem>
                 </Form>
             </div>

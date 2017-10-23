@@ -5,7 +5,9 @@
 
 .login-form {
     width: 325px;
-    padding: 24px;
+    padding-top: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
     border-radius: 4px;
 }
 
@@ -19,7 +21,9 @@
 
 .register-form {
     width: 540px;
-    padding: 24px;
+    padding-top: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
     border-radius: 4px;
     background-color: white;
 }

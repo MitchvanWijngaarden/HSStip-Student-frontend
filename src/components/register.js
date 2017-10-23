@@ -1,34 +1,11 @@
 import React, {Component} from "react";
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import {Link} from 'react-router-dom';
+import { Form, Input, Tooltip, Icon, Popover, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 
 import Logo from './logo';
-
-const residences = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-        }],
-    }],
-}, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-        }],
-    }],
-}];
 
 class RegistrationForm extends Component {
     state = {
@@ -99,18 +76,31 @@ class RegistrationForm extends Component {
                 },
             },
         };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
-        })(
-            <Select style={{ width: 60 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>
+
+        const emailContent = (
+            <div>
+                <p style={{maxWidth: 250}}>
+                    Voer hier uw studentnummer in, beginnend met de letter s
+                </p>
+            </div>
         );
 
-        const websiteOptions = autoCompleteResult.map(website => (
-            <AutoCompleteOption key={website}>{website}</AutoCompleteOption>
-        ));
+        const passwordContent = (
+            <div>
+                <p style={{maxWidth: 250}}>
+                    Gebruik ten minste acht tekens.
+                    Gebruik niet het wachtwoord van een andere site of iets dat erg voor de hand liggend is, zoals de naam van uw huisdier
+                </p>
+            </div>
+        );
+
+        const phoneContent = (
+            <div>
+                <p style={{maxWidth: 250}}>
+                    Je persoonlijke mobiel nummer om bereikt te kunnen worden
+                </p>
+            </div>
+        );
 
         return (
             <div className="center">
@@ -120,24 +110,8 @@ class RegistrationForm extends Component {
                 <Form onSubmit={this.handleSubmit} className="register-form ">
                     <FormItem
                         {...formItemLayout}
-                        label="Studentnummer"
-                        hasFeedback
-                    >
-                        {getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email', message: 'The input is not valid E-mail!',
-                            }, {
-                                required: true, message: 'Please input your E-mail!',
-                            }],
-                        })(
-                            <Input />
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="E-mail "
-                        hasFeedback
-                    >
+                        label="E-mail ">
+
                         {getFieldDecorator('password', {
                             rules: [{
                                 required: true, message: 'Please input your password!',
@@ -145,7 +119,9 @@ class RegistrationForm extends Component {
                                 validator: this.checkConfirm,
                             }],
                         })(
-                            <Input type="password" />
+                            <Popover content={emailContent} placement="right" trigger="focus">
+                                <Input addonAfter="@student.hsleiden.nl" type="text" maxLength="8" placeholder="Bijv. s1097634" />
+                            </Popover>
                         )}
                     </FormItem>
                     <FormItem
@@ -153,14 +129,16 @@ class RegistrationForm extends Component {
                         label="Wachtwoord"
                         hasFeedback
                     >
-                        {getFieldDecorator('confirm', {
+                        {getFieldDecorator('password', {
                             rules: [{
                                 required: true, message: 'Please confirm your password!',
                             }, {
                                 validator: this.checkPassword,
                             }],
                         })(
-                            <Input type="password" onBlur={this.handleConfirmBlur} />
+                            <Popover content={passwordContent} placement="right" title="Wachtwoordkwaliteit" trigger="focus">
+                                <Input type="password" onBlur={this.handleConfirmBlur} />
+                            </Popover>
                         )}
                     </FormItem>
                     <FormItem
@@ -185,13 +163,10 @@ class RegistrationForm extends Component {
                         {getFieldDecorator('website', {
                             rules: [{ required: true, message: 'Please input website!' }],
                         })(
-                            <AutoComplete
-                                dataSource={websiteOptions}
-                                onChange={this.handleWebsiteChange}
+                            <Input
                                 placeholder=""
                             >
-                                <Input />
-                            </AutoComplete>
+                            </Input>
                         )}
                     </FormItem>
                     <FormItem
@@ -201,13 +176,10 @@ class RegistrationForm extends Component {
                         {getFieldDecorator('website', {
                             rules: [{ message: 'Please input website!' }],
                         })(
-                            <AutoComplete
-                                dataSource={websiteOptions}
-                                onChange={this.handleWebsiteChange}
+                            <Input
                                 placeholder=""
                             >
-                                <Input />
-                            </AutoComplete>
+                            </Input>
                         )}
                     </FormItem>
                     <FormItem
@@ -217,55 +189,46 @@ class RegistrationForm extends Component {
                         {getFieldDecorator('website', {
                             rules: [{ required: true, message: 'Please input website!' }],
                         })(
-                            <AutoComplete
-                                dataSource={websiteOptions}
-                                onChange={this.handleWebsiteChange}
-                                placeholder=""
-                            >
-                                <Input />
-                            </AutoComplete>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Telefoonnummer"
-                    >
-                        {getFieldDecorator('website', {
-                            rules: [{ required: true, message: 'Please input website!' }],
-                        })(
-                            <AutoComplete
-                                dataSource={websiteOptions}
-                                onChange={this.handleWebsiteChange}
-                                placeholder=""
-                            >
-                                <Input />
-                            </AutoComplete>
-                        )}
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                        label="Cohort"
-                    >
-                        {getFieldDecorator('website', {
-                            rules: [{ required: true, message: 'Please input website!' }],
-                        })(
+                            <Input placeholder=""></Input>
 
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Mobiel nummer">
+
+                        {getFieldDecorator('website', {
+                            rules: [{ required: true, message: 'Please input website!' }],
+                        })(
+                            <Popover content={phoneContent} placement="right" trigger="focus">
+                                <Input type="text" placeholder="Bijv. 0685648516"></Input>
+                            </Popover>
+                        )}
+                    </FormItem>
+                    <FormItem
+                        {...formItemLayout}
+                        label="Cohort">
+
+                        {getFieldDecorator('website', {
+                            rules: [{ required: true, message: 'Please input website!' }],
+                        })(
                             <Select />
                         )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Mentor"
-                    >
+                        label="Mentor">
+
                         {getFieldDecorator('website', {
                             rules: [{ required: true, message: 'Please input website!' }],
                         })(
-
-                                <Select />
+                            <Select />
                         )}
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Registreren</Button>
+                        <br/>
+                        Heb je al een account? <Link to="/">Inloggen</Link>
                     </FormItem>
                 </Form>
             </div>
