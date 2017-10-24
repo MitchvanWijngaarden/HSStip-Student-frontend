@@ -1,9 +1,7 @@
 import React, {Component} from "react";
-import { Form, Input, Tooltip, Icon, Checkbox, Select, Row, Col, DatePicker, Button, AutoComplete } from 'antd';
+import { Form, Input, Checkbox, Select, DatePicker, Button, Row, Col} from 'antd';
 
 const FormItem = Form.Item;
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -17,110 +15,91 @@ const dateFormat = 'DD-MM-YYYY';
 
 class StageDetails extends Component {
 
-    state = {
-        confirmDirty: false,
-        autoCompleteResult: [],
-    };
+    constructor(props){
+        super(props);
+
+        this.state = {
+            bedrijf: {
+                bedrijfsnaam: 'Google',
+                adres: 'Googlestraat 5',
+                postcode: '2135LS',
+                stad: 'Amsterdam',
+                telefoonnummer: '0235654889',
+                website: 'www.google.nl',
+                bedrijfomschrijving: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+            }
+        }
+    }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
+
+        const bedrijf = this.state.bedrijf;
 
         const formItemLayout = {
-            labelCol: { span: 3 },
-            wrapperCol: { span: 5 },
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 8 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 14 },
+            },
         };
 
         return (
-            <div>
+            <div className="center-register-form">
                 <h1 className="main-h">Stage details</h1>
-
-                <h2 className="main-h">Stage informatie</h2>
-
-                <Form layout='horizontal'>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="Bedrijf" value="Google" disabled />
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="Stagetitel" value="Node.js + React" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="keywords" value="JavaScript, React, Node" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <TextArea placeholder="Korte omschrijving stage" value="Google steelt je gegevens" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <TextArea placeholder="Lange omschrijving stage" value="Google steelt je gegevens" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <RangePicker  defaultValue={[moment('10-10-2017', dateFormat), moment('10-10-2017', dateFormat)]} disabled/>
-                    </FormItem>
-
-                    <FormItem
-                        label="Studierichting"
-                    >
-                        <CheckboxGroup options={studierichtingOptions} defaultValue={['SE']} disabled />
-                    </FormItem>
-
-                    <FormItem
-                        label="Module"
-                    >
-                        <CheckboxGroup options={moduleOptions} defaultValue={['IWLS']} disabled />
-                    </FormItem>
-                </Form>
-
-                <h2 className="main-h">Contactpersoon informatie</h2>
-
-                <Form layout='horizontal'>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Select placeholder="Contactpersoon voor bedrijf" value="Roland Westveer" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="Voornaam" value="Jan" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="Tussenvoegsel" value="van" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="Achternaam" value="Bos" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="Telefoonnummer" value="023-5654889" disabled/>
-                    </FormItem>
-                    <FormItem
-                        {...formItemLayout}
-                    >
-                        <Input placeholder="E-mail" value="Jan@hotmail.com" disabled/>
-                    </FormItem>
-
-                </Form>
+                <div style={{maxWidth: 540}}>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Bedrijfsnaam</Col>
+                        <Col {...formItemLayout.wrapperCol}>{bedrijf.bedrijfsnaam}</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Stagetitel</Col>
+                        <Col {...formItemLayout.wrapperCol}>Docker Integratie</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Stad stage</Col>
+                        <Col {...formItemLayout.wrapperCol}>Amsterdam</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Tags</Col>
+                        <Col {...formItemLayout.wrapperCol}>Java, Docker</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Stage contactpersoon</Col>
+                        <Col {...formItemLayout.wrapperCol}>Piet van Bos</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Studierichting</Col>
+                        <Col {...formItemLayout.wrapperCol}>Mediatechnologie, Software Engineering</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Begin- en einddatum</Col>
+                        <Col {...formItemLayout.wrapperCol}>1-1-2018 ~ 26-6-2018</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Soort stage</Col>
+                        <Col {...formItemLayout.wrapperCol}>Meeloopstage (IWLS), Afstudeerstage (IWLA)</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Korte omschrijving stage</Col>
+                        <Col {...formItemLayout.wrapperCol} style={{maxWidth: 300}}>Lorem ipsum</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol} style={{fontWeight: 500}}>Lange omschrijving stage</Col>
+                        <Col {...formItemLayout.wrapperCol} style={{maxWidth: 300}}>{bedrijf.bedrijfomschrijving}</Col>
+                    </Row>
+                    <Row style={{paddingBottom: 10}}>
+                        <Col {...formItemLayout.labelCol}></Col>
+                        <Col {...formItemLayout.wrapperCol} style={{maxWidth: 300}}>
+                            <Button type="primary" htmlType="submit">Inschrijven</Button>
+                        </Col>
+                    </Row>
+                </div>
             </div>
         );
     }
 }
 
-const WrappedStageDetails = Form.create()(StageDetails);
-
-export default WrappedStageDetails;
+export default  Form.create()(StageDetails);

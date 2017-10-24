@@ -44,7 +44,7 @@ class Bedrijven extends Component {
         this.props.history.push(`/dashboard/bedrijf-details/`);
     };
 
-    componentWillMount(){
+    componentDidMount(){
         axios.get('http://127.0.0.1:8090/bedrijven')
             .then((bedrijven) => {
                const mappedBedrijven = bedrijven.data.map((bedrijf) => {
@@ -69,10 +69,11 @@ class Bedrijven extends Component {
                 <div className="table-operations">
                     <Search
                         placeholder="Bedrijven zoeken..."
-                        style={{ width: 400 }}
+                        style={{ maxWidth: 400 }}
                     />
                 </div>
-                <Table columns={columns} dataSource={this.state.bedrijven} onRowClick={this.handleRowClick} loading={!this.state.dataLoaded}/>
+                <Table columns={columns} dataSource={this.state.bedrijven} className="responsive-table"
+                       onRowClick={this.handleRowClick} loading={!this.state.dataLoaded}/>
             </div>
         );
     }

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom'
 
 import Voortgang from './voortgang';
 import Profiel from './profiel';
+import Account from './account';
 import Stages from './stages';
 import Bedrijven from './bedrijven';
 import BedrijfToevoegen from './bedrijf_toevoegen';
@@ -17,9 +18,6 @@ import Logo from './logo';
 import { Layout, Menu, Icon, Row, Col} from 'antd';
 const { Header, Sider, Content } = Layout;
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-
-
 
 class Dashboard extends Component {
 
@@ -41,19 +39,14 @@ class Dashboard extends Component {
         return (
             <Layout>
                 <Sider
-                    trigger={null}
-                    collapsible
-                    collapsed={this.state.collapsed}>
-
+                    breakpoint="xs"
+                    collapsedWidth="0"
+                    onCollapse={(collapsed, type) => { console.log(collapsed, type); }}
+                >
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} onClick={this.handleMenuClick}>
                         <Menu.Item key="/dashboard/" className="menu-item" keyPath="/">
                             <Icon type="home" />
                             <span>Overzicht</span>
-                        </Menu.Item>
-
-                        <Menu.Item key="/dashboard/profiel/">
-                            <Icon type="user" />
-                            <span>Profiel</span>
                         </Menu.Item>
 
                         <SubMenu key="sub1" title={<span><Icon type="star" /><span>Bedrijven</span></span>}>
@@ -66,6 +59,16 @@ class Dashboard extends Component {
                             <Menu.Item key="/dashboard/stage-toevoegen/">Toevoegen</Menu.Item>
                         </SubMenu>
 
+                        <Menu.Item key="/dashboard/profiel/">
+                            <Icon type="user" />
+                            <span>Profiel</span>
+                        </Menu.Item>
+
+                        <Menu.Item key="/dashboard/account/">
+                            <Icon type="lock" />
+                            <span>Account</span>
+                        </Menu.Item>
+
                         <Menu.Item key="/">
                             <Icon type="poweroff" />
                             <span>Uitloggen</span>
@@ -74,16 +77,12 @@ class Dashboard extends Component {
                 </Sider>
                 <Layout>
                     <Header style={{ background: '#fff'}} className="header">
-                        <Icon
-                            className="trigger"
-                            type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                            onClick={this.toggle}
-                        />
                         <Logo/>
                     </Header>
-                    <Content style={{ margin: '24px 16px', padding: 24, background: '#fff'}}>
+                    <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minWidth: 200}}>
                         <Route exact path={`${this.props.match.url}/`} component={Voortgang}/>
                         <Route path={`${this.props.match.url}/profiel/`} component={Profiel}/>
+                        <Route path={`${this.props.match.url}/account/`} component={Account}/>
                         <Route path={`${this.props.match.url}/stages/`} component={Stages}/>
                         <Route path={`${this.props.match.url}/bedrijven/`} component={Bedrijven}/>
                         <Route path={`${this.props.match.url}/bedrijf-toevoegen/`} component={BedrijfToevoegen}/>

@@ -1,12 +1,13 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom'
 
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button} from 'antd';
 const FormItem = Form.Item;
 
 import Logo from './logo';
 
 class WachtwoordReset extends Component {
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -15,6 +16,7 @@ class WachtwoordReset extends Component {
             }
         });
     };
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -43,6 +45,4 @@ class WachtwoordReset extends Component {
     }
 }
 
-const WrappedWachtwoordReset = Form.create()(WachtwoordReset);
-
-export default WrappedWachtwoordReset;
+export default Form.create()(WachtwoordReset);

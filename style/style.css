@@ -3,8 +3,17 @@
     background-color: white;
 }
 
+.center-register-form{
+    width: 100%;
+    max-width: 600px;
+}
+
+.center-login-form{
+    width: 100%;
+    max-width: 325px;
+}
+
 .login-form {
-    width: 325px;
     padding-top: 24px;
     padding-left: 24px;
     padding-right: 24px;
@@ -20,12 +29,10 @@
 }
 
 .register-form {
-    width: 540px;
     padding-top: 24px;
     padding-left: 24px;
     padding-right: 24px;
     border-radius: 4px;
-    background-color: white;
 }
 
 .header{
@@ -70,4 +77,12 @@
 
 .ant-table-tbody > tr {
     cursor: pointer;
+}
+
+.ant-table-body{
+    overflow-x:auto!important;
+}
+
+.form-text-align-left .ant-form-item-label{
+    text-align: left!important;
 }

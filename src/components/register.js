@@ -1,9 +1,7 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom';
-import { Form, Input, Tooltip, Icon, Popover, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Select, Button } from 'antd';
 const FormItem = Form.Item;
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 
 import Logo from './logo';
 
@@ -12,6 +10,7 @@ class RegistrationForm extends Component {
         confirmDirty: false,
         autoCompleteResult: [],
     };
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
@@ -20,10 +19,12 @@ class RegistrationForm extends Component {
             }
         });
     };
+
     handleConfirmBlur = (e) => {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     };
+
     checkPassword = (rule, value, callback) => {
         const form = this.props.form;
         if (value && value !== form.getFieldValue('password')) {
@@ -32,6 +33,7 @@ class RegistrationForm extends Component {
             callback();
         }
     };
+
     checkConfirm = (rule, value, callback) => {
         const form = this.props.form;
         if (value && this.state.confirmDirty) {
@@ -40,23 +42,13 @@ class RegistrationForm extends Component {
         callback();
     };
 
-    handleWebsiteChange = (value) => {
-        let autoCompleteResult;
-        if (!value) {
-            autoCompleteResult = [];
-        } else {
-            autoCompleteResult = ['.com', '.org', '.net'].map(domain => `${value}${domain}`);
-        }
-        this.setState({ autoCompleteResult });
-    };
-
     render() {
         const { getFieldDecorator } = this.props.form;
         const { autoCompleteResult } = this.state;
 
         const formItemLayout = {
             labelCol: {
-                xs: { span: 26 },
+                xs: { span: 24 },
                 sm: { span: 8 },
             },
             wrapperCol: {
@@ -64,6 +56,7 @@ class RegistrationForm extends Component {
                 sm: { span: 14 },
             },
         };
+
         const tailFormItemLayout = {
             wrapperCol: {
                 xs: {
@@ -79,7 +72,7 @@ class RegistrationForm extends Component {
 
         const emailContent = (
             <div>
-                <p style={{maxWidth: 250}}>
+                <p style={{maxWidth: 225}}>
                     Voer hier uw studentnummer in, beginnend met de letter s
                 </p>
             </div>
@@ -87,23 +80,15 @@ class RegistrationForm extends Component {
 
         const passwordContent = (
             <div>
-                <p style={{maxWidth: 250}}>
-                    Gebruik ten minste acht tekens.
+                <p style={{maxWidth: 225}}>
+                    Gebruik ten minste 6 tekens.
                     Gebruik niet het wachtwoord van een andere site of iets dat erg voor de hand liggend is, zoals de naam van uw huisdier
                 </p>
             </div>
         );
 
-        const phoneContent = (
-            <div>
-                <p style={{maxWidth: 250}}>
-                    Je persoonlijke mobiel nummer om bereikt te kunnen worden
-                </p>
-            </div>
-        );
-
         return (
-            <div className="center">
+            <div className="center center-register-form">
                 <div style={{textAlign: 'center'}}>
                     <Logo />
                 </div>
@@ -112,38 +97,34 @@ class RegistrationForm extends Component {
                         {...formItemLayout}
                         label="E-mail ">
 
-                        {getFieldDecorator('password', {
+                        {getFieldDecorator('email', {
                             rules: [{
                                 required: true, message: 'Please input your password!',
                             }, {
                                 validator: this.checkConfirm,
                             }],
                         })(
-                            <Popover content={emailContent} placement="right" trigger="focus">
-                                <Input addonAfter="@student.hsleiden.nl" type="text" maxLength="8" placeholder="Bijv. s1097634" />
-                            </Popover>
+                            <Input addonAfter="@student.hsleiden.nl" type="text" maxLength="8" placeholder="Bijv. s1097634" />
                         )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
                         label="Wachtwoord"
-                        hasFeedback
-                    >
-                        {getFieldDecorator('password', {
-                            rules: [{
-                                required: true, message: 'Please confirm your password!',
-                            }, {
-                                validator: this.checkPassword,
-                            }],
-                        })(
-                            <Popover content={passwordContent} placement="right" title="Wachtwoordkwaliteit" trigger="focus">
+                        hasFeedback>
+
+                            {getFieldDecorator('password', {
+                                rules: [{
+                                    required: true, message: 'Please confirm your password!',
+                                }, {
+                                    validator: this.checkPassword,
+                                }],
+                            })(
                                 <Input type="password" onBlur={this.handleConfirmBlur} />
-                            </Popover>
-                        )}
+                            )}
                     </FormItem>
                     <FormItem
                         {...formItemLayout}
-                        label="Herhaal wachtwoord"
+                        label="Bevestig wachtwoord"
                         hasFeedback
                     >
                         {getFieldDecorator('confirm', {
@@ -200,29 +181,45 @@ class RegistrationForm extends Component {
                         {getFieldDecorator('website', {
                             rules: [{ required: true, message: 'Please input website!' }],
                         })(
-                            <Popover content={phoneContent} placement="right" trigger="focus">
-                                <Input type="text" placeholder="Bijv. 0685648516"></Input>
-                            </Popover>
+                            <Input type="text" placeholder="Bijv. 0685648516"></Input>
                         )}
                     </FormItem>
                     <FormItem
+                        label="Studie"
                         {...formItemLayout}
-                        label="Cohort">
+                        hasFeedback>
 
-                        {getFieldDecorator('website', {
-                            rules: [{ required: true, message: 'Please input website!' }],
+                        {getFieldDecorator('studie', {
+                            rules: [{
+                                required: true, message: 'Kies je studie',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
                         })(
-                            <Select />
+                            <Select placeholder="Selecteer je studie">
+                                <Option value="SE">Software Engineering</Option>
+                                <Option value="MEDT">Mediatechnologie</Option>
+                                <Option value="FICT">Forensisch ICT</Option>
+                                <Option value="BDAM">Business Data Management</Option>
+                            </Select>
                         )}
                     </FormItem>
                     <FormItem
+                        label="Mentor"
                         {...formItemLayout}
-                        label="Mentor">
+                        hasFeedback>
 
-                        {getFieldDecorator('website', {
-                            rules: [{ required: true, message: 'Please input website!' }],
+                        {getFieldDecorator('studie', {
+                            rules: [{
+                                required: true, message: 'Kies je studie',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
                         })(
-                            <Select />
+                            <Select placeholder="Selecteer je mentor">
+                                <Option value="Roland Westveer">Roland Westveer</Option>
+                                <Option value="Alex van Manen">Alex van Manen</Option>
+                            </Select>
                         )}
                     </FormItem>
                     <FormItem {...tailFormItemLayout}>
@@ -236,6 +233,4 @@ class RegistrationForm extends Component {
     }
 }
 
-const WrappedRegistration = Form.create()(RegistrationForm);
-
-export default WrappedRegistration;
+export default Form.create()(RegistrationForm);

@@ -1,119 +1,328 @@
 import React, {Component} from "react";
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, DatePicker} from 'antd';
+import { Form, Input, Select, Checkbox, Button, DatePicker, Tag, Row, Col} from 'antd';
 
 const FormItem = Form.Item;
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
-const studierichtingOptions = ['BDAM', 'FICT', 'MEDT', 'SE'];
 const moduleOptions = ['IWLS', 'IWLA'];
 
 class StageToevoegen extends Component {
 
     state = {
-        confirmDirty: false,
-        autoCompleteResult: [],
+        tags: ['Java', 'Docker'],
+        inputVisible: false,
+        inputValue: '',
     };
 
+    handleClose = (removedTag) => {
+        const tags = this.state.tags.filter(tag => tag !== removedTag);
+        console.log(tags);
+        this.setState({ tags });
+    }
+
+    showInput = () => {
+        this.setState({ inputVisible: true }, () => this.input.focus());
+    }
+
+    handleInputChange = (e) => {
+        this.setState({ inputValue: e.target.value });
+    }
+
+    handleInputConfirm = () => {
+        const state = this.state;
+        const inputValue = state.inputValue;
+        let tags = state.tags;
+        if (inputValue && tags.indexOf(inputValue) === -1) {
+            tags = [...tags, inputValue];
+        }
+        console.log(tags);
+        this.setState({
+            tags,
+            inputVisible: false,
+            inputValue: '',
+        });
+    }
+
+    saveInputRef = input => this.input = input
+
     render() {
+        const { tags, inputVisible, inputValue } = this.state;
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
-            labelCol: { span: 3 },
-            wrapperCol: { span: 5 },
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 8 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 14 },
+            },
+        };
+
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 14,
+                    offset: 8,
+                },
+            },
         };
 
         return (
-            <div>
+            <div className="center-register-form">
                 <h1 className="main-h">Stage toevoegen</h1>
 
                 <h2 className="main-h">Stage informatie</h2>
 
-                <Form layout='horizontal'>
+                <Form layout='horizontal' className="form-text-align-left">
                     <FormItem
+                        label="Bedrijf"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Bedrijf" />
+                        {getFieldDecorator('bedrijf', {
+                            rules: [{
+                                required: true, message: 'Voer het bedrijfsnaam in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Select placeholder="Selecteer het bedrijf dat de stage aanbiedt"/>
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Stagetitel"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Stagetitel" />
+                        {getFieldDecorator('stagetitel', {
+                            rules: [{
+                                required: true, message: 'Voer de stagetitel in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input placeholder="Titel die bij een vacature staat"/>
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Tags"
                         {...formItemLayout}
                     >
-                        <Input placeholder="keywords" />
+                        {getFieldDecorator('tags', {
+                            rules: [{
+                                required: true, message: 'Voer een keyword in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <div>
+                                {tags.map((tag, index) => {
+                                    const isLongTag = tag.length > 20;
+                                    const tagElem = (
+                                        <Tag key={tag} closable={index !== 0} afterClose={() => this.handleClose(tag)}>
+                                            {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+                                        </Tag>
+                                    );
+                                    return isLongTag ? <Tooltip title={tag}>{tagElem}</Tooltip> : tagElem;
+                                })}
+                                {inputVisible && (
+                                    <Input
+                                        ref={this.saveInputRef}
+                                        type="text"
+                                        size="small"
+                                        style={{ width: 78 }}
+                                        value={inputValue}
+                                        onChange={this.handleInputChange}
+                                        onBlur={this.handleInputConfirm}
+                                        onPressEnter={this.handleInputConfirm}
+                                    />
+                                )}
+                                {!inputVisible && <Button size="small" type="dashed" onClick={this.showInput}>+ Nieuwe tag</Button>}
+                            </div>
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Korte omschrijving stage"
                         {...formItemLayout}
                     >
-                        <TextArea placeholder="Korte omschrijving stage" />
+                        {getFieldDecorator('stagetitel', {
+                            rules: [{
+                                required: true, message: 'Voer de stagetitel in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <TextArea />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Lange omschrijving stage"
                         {...formItemLayout}
                     >
-                        <TextArea placeholder="Lange omschrijving stage" />
+                        {getFieldDecorator('stagetitel', {
+                            rules: [{
+                                required: true, message: 'Voer de stagetitel in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <TextArea />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Begin- en einddatum"
                         {...formItemLayout}
                     >
-                        <RangePicker />
+                        {getFieldDecorator('stagetitel', {
+                            rules: [{
+                                required: true, message: 'Voer de stagetitel in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <RangePicker />
+                        )}
                     </FormItem>
-
                     <FormItem
                         label="Studierichting"
+                        {...formItemLayout}
                     >
-                        <CheckboxGroup options={studierichtingOptions} />
+                        {getFieldDecorator('stagetitel', {
+                            rules: [{
+                                required: true, message: 'Voer de stagetitel in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Checkbox.Group>
+                                <Row>
+                                    <Col span={24}><Checkbox value="A">Business Data Management</Checkbox></Col>
+                                    <Col span={24}><Checkbox value="B">Forensisch ICT</Checkbox></Col>
+                                    <Col span={24}><Checkbox value="C">Mediatechnologie</Checkbox></Col>
+                                    <Col span={24}><Checkbox value="D">Software Engineering</Checkbox></Col>
+                                </Row>
+                            </Checkbox.Group>
+                        )}
                     </FormItem>
-
                     <FormItem
-                        label="Module"
+                        label="Soort stage"
+                        {...formItemLayout}
                     >
-                        <CheckboxGroup options={moduleOptions} />
+                        {getFieldDecorator('stagetitel', {
+                            rules: [{
+                                required: true, message: 'Voer de stagetitel in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Checkbox.Group>
+                                <Row>
+                                    <Col span={24}><Checkbox value="A">Meeloopstage (IWLS)</Checkbox></Col>
+                                    <Col span={24}><Checkbox value="B">Afstudeerstage (IWLA)</Checkbox></Col>
+                                </Row>
+                            </Checkbox.Group>
+                        )}
                     </FormItem>
                 </Form>
 
                     <h2 className="main-h">Contactpersoon informatie</h2>
 
-                    <Form layout='horizontal'>
+                    <Form layout='horizontal' className="form-text-align-left">
                         <FormItem
+                            label="Contactpersoon voor bedrijf"
                             {...formItemLayout}
                         >
-                            <Select placeholder="Contactpersoon voor bedrijf" />
+                            {getFieldDecorator('bedrijf', {
+                                rules: [{
+                                   message: 'Voer het bedrijfsnaam in',
+                                }, {
+                                    validator: this.checkConfirm,
+                                }],
+                            })(
+                                <Select/>
+                            )}
                         </FormItem>
                         <FormItem
+                            label="Voornaam"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Voornaam" />
+                            {getFieldDecorator('bedrijf', {
+                                rules: [{
+                                    message: 'Voer het bedrijfsnaam in',
+                                }, {
+                                    validator: this.checkConfirm,
+                                }],
+                            })(
+                                <Input />
+                            )}
                         </FormItem>
                         <FormItem
+                            label="Tussenvoegsel"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Tussenvoegsel" />
+                            {getFieldDecorator('bedrijf', {
+                                rules: [{
+                                    message: 'Voer het bedrijfsnaam in',
+                                }, {
+                                    validator: this.checkConfirm,
+                                }],
+                            })(
+                                <Input />
+                            )}
                         </FormItem>
                         <FormItem
+                            label="Achternaam"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Achternaam" />
+                            {getFieldDecorator('bedrijf', {
+                                rules: [{
+                                    message: 'Voer het bedrijfsnaam in',
+                                }, {
+                                    validator: this.checkConfirm,
+                                }],
+                            })(
+                                <Input />
+                            )}
                         </FormItem>
                         <FormItem
+                            label="Telefoonnummer"
                             {...formItemLayout}
                         >
-                            <Input placeholder="Telefoonnummer" />
+                            {getFieldDecorator('bedrijf', {
+                                rules: [{
+                                    message: 'Voer het bedrijfsnaam in',
+                                }, {
+                                    validator: this.checkConfirm,
+                                }],
+                            })(
+                                <Input placeholder="Bijv. 0235654889" />
+                            )}
                         </FormItem>
                         <FormItem
+                            label="E-mail"
                             {...formItemLayout}
                         >
-                            <Input placeholder="E-mail" />
+                            {getFieldDecorator('bedrijf', {
+                                rules: [{
+                                    message: 'Voer het bedrijfsnaam in',
+                                }, {
+                                    validator: this.checkConfirm,
+                                }],
+                            })(
+                                <Input placeholder="Bijv. iemand@voorbeeld.nl" />
+                            )}
                         </FormItem>
-
-                        <FormItem>
-                        <Button type="primary" htmlType="submit">Toevoegen</Button>
-                    </FormItem>
+                        <FormItem {...tailFormItemLayout}>
+                            <Button type="primary" htmlType="submit">Toevoegen</Button>
+                            <span> Of </span>
+                            <Button type="primary" htmlType="submit">Toevoegen en inschrijven</Button>
+                        </FormItem>
                 </Form>
             </div>
         );

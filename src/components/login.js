@@ -17,13 +17,32 @@ class Login extends Component {
     };
     render() {
         const { getFieldDecorator } = this.props.form;
+
+        const formItemLayout = {
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 24 },
+            },
+        };
+
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24
+                },
+                sm: {
+                    span: 24
+                },
+            },
+        };
+
         return (
-            <div className="center">
+            <div className="center center-login-form">
                 <div style={{textAlign: 'center'}}>
                     <Logo />
                 </div>
                 <Form onSubmit={this.handleSubmit} className="login-form">
-                    <FormItem>
+                    <FormItem {...formItemLayout}>
                         {getFieldDecorator('userName', {
                             rules: [{ required: true, message: 'Please input your username!' }],
                         })(
@@ -31,14 +50,14 @@ class Login extends Component {
                                    addonAfter="@student.hsleiden.nl" maxLength="8" />
                         )}
                     </FormItem>
-                    <FormItem>
+                    <FormItem {...formItemLayout}>
                         {getFieldDecorator('password', {
                             rules: [{ required: true, message: 'Please input your Password!' }],
                         })(
                             <Input type="password" placeholder="Wachtwoord" />
                         )}
                     </FormItem>
-                    <FormItem>
+                    <FormItem {...tailFormItemLayout}>
                         {getFieldDecorator('remember', {
                             valuePropName: 'checked',
                             initialValue: true,
@@ -46,7 +65,7 @@ class Login extends Component {
                             <Checkbox>Onthoud mij</Checkbox>
                         )}
                         <Link to="/wachtwoord-reset" className="login-form-forgot ">Wachtwoord vergeten</Link>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" >
                             <Link to="/dashboard">Inloggen</Link>
                         </Button>
                         Of <Link to="/register">Registreren</Link>

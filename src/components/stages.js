@@ -1,10 +1,7 @@
 import React, {Component} from "react";
 
-import {Form, Table, Button, Input, Cascader, Select, Row, Col, Checkbox, AutoComplete} from 'antd';
+import {Table, Input} from 'antd';
 
-const FormItem = Form.Item;
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 const {Search} = Input;
 
 const columns = [{
@@ -42,22 +39,8 @@ for (let i = 0; i < 46; i++) {
 
 class Stages extends Component {
     state = {
-        selectedRowKeys: [],  // Check here to configure the default column
+        selectedRowKeys: [],
         loading: false,
-    };
-    start = () => {
-        this.setState({loading: true});
-        // ajax request after empty completing
-        setTimeout(() => {
-            this.setState({
-                selectedRowKeys: [],
-                loading: false,
-            });
-        }, 1000);
-    };
-    onSelectChange = (selectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
-        this.setState({selectedRowKeys});
     };
 
     handleRowClick = (record) => {
@@ -65,15 +48,13 @@ class Stages extends Component {
     };
 
     render() {
-        const {loading, selectedRowKeys} = this.state;
-        const hasSelected = selectedRowKeys.length > 0;
         return (
             <div>
                 <h1 className="main-h">Stages</h1>
                 <div className="table-operations">
                     <Search
                         placeholder="Stages zoeken..."
-                        style={{ width: 400 }}
+                        style={{ maxWidth: 400 }}
                     />
                 </div>
                 <Table columns={columns} dataSource={data} onRowClick={this.handleRowClick}/>

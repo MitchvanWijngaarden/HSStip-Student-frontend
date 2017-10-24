@@ -1,19 +1,11 @@
 import React, {Component} from "react";
-import { Form, Input, Tooltip, Icon, Steps, Select, Row, Col, Checkbox, Button, AutoComplete, DatePicker} from 'antd';
+import { Form, Steps} from 'antd';
 
 const Step = Steps.Step;
 
-
 class Voortgang extends Component {
 
-    state = {
-        confirmDirty: false,
-        autoCompleteResult: [],
-    };
-
     render() {
-        const { getFieldDecorator } = this.props.form;
-
         return (
             <div>
                 <h1 className="main-h">Stagevoortgang</h1>
@@ -37,6 +29,4 @@ class Voortgang extends Component {
     }
 }
 
-const WrappedVoortgang = Form.create()(Voortgang);
-
-export default WrappedVoortgang;
+export default Form.create()(Voortgang);

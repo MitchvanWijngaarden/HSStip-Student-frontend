@@ -1,9 +1,7 @@
 import React, {Component} from "react";
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 const { TextArea } = Input;
 
 class BedrijfToevoegen extends Component {
@@ -17,50 +15,132 @@ class BedrijfToevoegen extends Component {
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
-            labelCol: { span: 3 },
-            wrapperCol: { span: 5 },
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 8 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 14 },
+            },
+        };
+
+        const tailFormItemLayout = {
+            wrapperCol: {
+                xs: {
+                    span: 24,
+                    offset: 0,
+                },
+                sm: {
+                    span: 14,
+                    offset: 8,
+                },
+            },
         };
 
         return (
-            <div>
+            <div className="center-register-form">
                 <h1 className="main-h">Bedrijf toevoegen</h1>
-                <Form layout='horizontal'>
+                <Form layout='horizontal' className="form-text-align-left">
                     <FormItem
+                        label="Bedrijfsnaam"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Bedrijfsnaam" />
+                        {getFieldDecorator('bedrijfsnaam', {
+                            rules: [{
+                                required: true, message: 'Voer het bedrijfsnaam in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Adres"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Adres" />
+                        {getFieldDecorator('adres', {
+                            rules: [{
+                                required: true, message: 'Voer het adres in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Postcode"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Postcode" />
+                        {getFieldDecorator('postcode', {
+                            rules: [{
+                                required: true, message: 'Voer de postcode in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input placeholder="Bijv. 2154SK" maxLength="6" />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Stad"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Stad" />
+                        {getFieldDecorator('stad', {
+                            rules: [{
+                                required: true, message: 'Voer de stad in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Telefoonnummer"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Telefoonnummer" />
+                        {getFieldDecorator('telefoonnummer', {
+                            rules: [{
+                                required: true, message: 'Voer het telefoonnummer in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input placeholder="Bijv. 0235654889" />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Website"
                         {...formItemLayout}
                     >
-                        <Input placeholder="Website" />
+                        {getFieldDecorator('website', {
+                            rules: [{
+                                required: true, message: 'Voer de website in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <Input placeholder="Bijv. www.google.nl" />
+                        )}
                     </FormItem>
                     <FormItem
+                        label="Omschrijving bedrijf"
                         {...formItemLayout}
                     >
-                        <TextArea placeholder="Omschrijving bedrijf" />
+                        {getFieldDecorator('bedrijfomschrijving', {
+                            rules: [{
+                                required: true, message: 'Voer uw voornaam in',
+                            }, {
+                                validator: this.checkConfirm,
+                            }],
+                        })(
+                            <TextArea />
+                        )}
                     </FormItem>
-                    <FormItem>
+                    <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit">Toevoegen</Button>
                     </FormItem>
                 </Form>
@@ -69,6 +149,4 @@ class BedrijfToevoegen extends Component {
     }
 }
 
-const WrappedBedrijfToevoegen = Form.create()(BedrijfToevoegen);
-
-export default WrappedBedrijfToevoegen;
+export default Form.create()(BedrijfToevoegen);
