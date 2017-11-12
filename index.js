@@ -4,7 +4,7 @@ const path      = require('path');
 const app       = express();
 const DOCS_PATH = './';
 const PORT      = 3000;
-const IP_ADRESS = '127.0.0.1';
+const IP_ADRESS = '0.0.0.0';
 
 app.set('port', PORT);
 app.set('ipAdress', IP_ADRESS);
