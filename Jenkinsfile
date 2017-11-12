@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sh 'npm run serve-dev &'
+                sh 'npm run serve-dev'
             }
         }
     }
