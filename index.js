@@ -3,7 +3,7 @@ const path      = require('path');
 
 const app       = express();
 const DOCS_PATH = './';
-const PORT      = 8080;
+const PORT      = 3000;
 const IP_ADRESS = '127.0.0.1';
 
 app.set('port', PORT);
